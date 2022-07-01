@@ -1,8 +1,6 @@
 var userFormEl = document.querySelector("#user-form");
 var cityInputEl = document.querySelector("#city");
-// var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=Milwaukee&appid=67820c596372ebc8bcdbff3f5b73527a";
-var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=67820c596372ebc8bcdbff3f5b73527a";
-
+var historyListEl = document.querySelector("#history-list");
 
 
 
@@ -11,7 +9,7 @@ var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&ap
 function getWeather() {
     event.preventDefault();
     var city = cityInputEl.value.trim();
-    var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=67820c596372ebc8bcdbff3f5b73527a";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=67820c596372ebc8bcdbff3f5b73527a";
 
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
@@ -36,6 +34,28 @@ function save() {
     oldCity.push(newCity);
 
     localStorage.setItem('cities', JSON.stringify(oldCity));
+
+    for (i = 0; i < localStorage.length; i++) {
+         key = sessionStorage.key(i);
+         val = sessionStorage.getItem(key);
+        // format repo name
+        var cityName = localStorage[i].val();
+        console.log(localStorage);
+
+        // create a container for each repo
+        var historyEl = document.createElement("p");
+        historyEl.classlist = "list-item flex-row justify-space-between align-center";
+        //historyEl.setAttribute
+
+        // create a span element to hold repository name
+        var titleEl = document.createElement("span");
+        titleEl.textContent = cityName;
+
+        historyEl.appendChild(titleEl);
+
+        historyListEl.appendChild(historyEl);
+
+    }
 
     console.log(city);
 }
@@ -69,7 +89,7 @@ userFormEl.addEventListener("submit", save);
 
 // ***************** concatenate city variable into apiUrl for fetch 
 
-// save city to local storage
+// ***************** save city to local storage
 
 // append city to history card as clickable button - display 10 max
 
@@ -96,20 +116,3 @@ userFormEl.addEventListener("submit", save);
 
 
 
-
-
-
-// var Weather = function (repo) {
-// var apiUrl = ;
-
-// fetch(apiUrl).then(function (response) {
-//     if(response.ok) {
-//         console.log
-//     }
-// }
-
-
-
-// (fetch("https://api.openweathermap.org/data/2.5/weather?q=Milwaukee&appid=67820c596372ebc8bcdbff3f5b73527a"))
-// .then(res => res.json())
-// .then(data => console.log(data))
