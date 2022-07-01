@@ -49,7 +49,7 @@ function loadHistory() {
 
     // create a container for each repo
     var historyEl = document.createElement("btn");
-    historyEl.classlist = "list-item flex-row justify-space-between align-center";
+    historyEl.classlist = "list-item btn flex-row justify-space-between align-center";
     //historyEl.setAttribute
 
     // create a span element to hold repository name
