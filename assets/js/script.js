@@ -22,8 +22,29 @@ function getWeather() {
             alert('Error: City Not Found');
         }
     });
+}
 
-    localStorage.setItem('city', JSON.stringify(city));
+
+function save() {
+    var newCity = document.getElementById('city').value;
+
+    if(localStorage.getItem('cities') == null){
+        localStorage.setItem('cities', '[]');
+    }
+
+    var oldCity = JSON.parse(localStorage.getItem('cities'));
+    oldCity.push(newCity);
+
+    localStorage.setItem('cities', JSON.stringify(oldCity));
+
+    console.log(city);
+}
+
+
+
+
+function appendHistory() {
+    localStorage.getItem('city');
     console.log(city);
 }
 
@@ -43,6 +64,7 @@ function getWeather() {
 
 
 userFormEl.addEventListener("submit", getWeather);
+userFormEl.addEventListener("submit", save);
 
 
 // ***************** concatenate city variable into apiUrl for fetch 

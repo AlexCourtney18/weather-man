@@ -12,10 +12,10 @@
     display: block;
     margin: 5px 0;
     border-radius: var(--border-radius);
-    color: var(--primary);
+    color: aliceblue;
     border: none;
     outline: none;
-    background-color: var(--light-dark);
+    background-color: #4a525a;
     box-shadow: 3px 3px var(--dark);
     transform: translate(-1px, -1px);
   }
