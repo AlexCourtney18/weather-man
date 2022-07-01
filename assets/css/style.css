@@ -19,3 +19,10 @@
     box-shadow: 3px 3px var(--dark);
     transform: translate(-1px, -1px);
   }
+
+  #today, #forecast {
+    border: solid 3px #3e78b2;
+    border-radius: 5px;
+    background-color: #4a525a;
+    color: aliceblue;
+  }

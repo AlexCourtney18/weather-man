@@ -37,6 +37,37 @@ var formSubmitHandler = function(event) {
 userFormEl.addEventListener("submit", formSubmitHandler);
 
 
+// concatenate city variable into apiUrl for fetch
+
+// save city to local storage
+
+// append city to history card as clickable button - display 10 max
+
+// pass city variable back through fetch function when clicked in history card
+
+// display today's weather information in weather card (convert celsius to Fahrenheit)
+
+// display 5 day forecast as 5 cards within row 2 col 2 div
+
+// concatenate city variable into header for r2c2 card "Showing Weather for City"
+
+// styling touches to ensure clean design (icons for weather status, UV index favorable, moderate, severe)
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // var Weather = function (repo) {
 // var apiUrl = ;
