@@ -11,7 +11,7 @@ function getWeather() {
     var city = cityInputEl.value.trim();
     var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=67820c596372ebc8bcdbff3f5b73527a";
 
-    fetch(apiUrl).then(function(response) {
+    fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
                 console.log(data);
@@ -26,7 +26,7 @@ function getWeather() {
 function save() {
     var newCity = document.getElementById('city').value;
 
-    if(localStorage.getItem('cities') == null){
+    if (localStorage.getItem('cities') == null) {
         localStorage.setItem('cities', '[]');
     }
 
@@ -35,38 +35,36 @@ function save() {
 
     localStorage.setItem('cities', JSON.stringify(oldCity));
 
-    for (i = 0; i < localStorage.length; i++) {
-         key = sessionStorage.key(i);
-         val = sessionStorage.getItem(key);
+    loadHistory();
+}
+
+function loadHistory() {
+    populate = JSON.parse(localStorage.getItem("cities"));
+    console.log(populate);
+
+    for (i = 0; i < populate.length; i++) {
         // format repo name
-        var cityName = localStorage[i].val();
-        console.log(localStorage);
+    var cityName = populate[i];
+    console.log(cityName);
 
-        // create a container for each repo
-        var historyEl = document.createElement("p");
-        historyEl.classlist = "list-item flex-row justify-space-between align-center";
-        //historyEl.setAttribute
+    // create a container for each repo
+    var historyEl = document.createElement("btn");
+    historyEl.classlist = "list-item flex-row justify-space-between align-center";
+    //historyEl.setAttribute
 
-        // create a span element to hold repository name
-        var titleEl = document.createElement("span");
-        titleEl.textContent = cityName;
+    // create a span element to hold repository name
+    var titleEl = document.createElement("span");
+    titleEl.textContent = cityName;
 
-        historyEl.appendChild(titleEl);
+    historyEl.appendChild(titleEl);
 
-        historyListEl.appendChild(historyEl);
+    historyListEl.appendChild(historyEl);
 
     }
 
-    console.log(city);
 }
 
 
-
-
-function appendHistory() {
-    localStorage.getItem('city');
-    console.log(city);
-}
 
 
 
@@ -87,7 +85,7 @@ userFormEl.addEventListener("submit", getWeather);
 userFormEl.addEventListener("submit", save);
 
 
-// ***************** concatenate city variable into apiUrl for fetch 
+// ***************** concatenate city variable into apiUrl for fetch
 
 // ***************** save city to local storage
 
@@ -103,7 +101,7 @@ userFormEl.addEventListener("submit", save);
 
 // styling touches to ensure clean design (icons for weather status, UV index favorable, moderate, severe)
 
- 
+
 
 
 
