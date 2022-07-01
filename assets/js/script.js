@@ -1,22 +1,27 @@
 var userFormEl = document.querySelector("#user-form");
 var cityInputEl = document.querySelector("#city");
-var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=Milwaukee&appid=67820c596372ebc8bcdbff3f5b73527a"
+// var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=Milwaukee&appid=67820c596372ebc8bcdbff3f5b73527a";
+var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=67820c596372ebc8bcdbff3f5b73527a";
 
 
 
 
 
-fetch(apiUrl)
-.then(res => res.json())
-.then(data => console.log(data))
 
-
-var formSubmitHandler = function(event) {
+function getWeather() {
     event.preventDefault();
-
     var city = cityInputEl.value.trim();
+    var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=67820c596372ebc8bcdbff3f5b73527a";
+
+    fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => console.log(data))
+
+
+
     console.log(city);
-};
+    
+}
 
 
 
@@ -33,11 +38,10 @@ var formSubmitHandler = function(event) {
 
 
 
+userFormEl.addEventListener("submit", getWeather);
 
-userFormEl.addEventListener("submit", formSubmitHandler);
 
-
-// concatenate city variable into apiUrl for fetch
+// ***************** concatenate city variable into apiUrl for fetch 
 
 // save city to local storage
 
