@@ -17,17 +17,48 @@
         <h1 class="text-center">Weather Dashboard</h1>
     </header>
 
-    <main class="flex-row justify-space-between">
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <h3 class="card-header text-uppercase">Search By City</h3>
-                <form id="user-form" class="card-body">
+    <main>
+        
+        <div class="row">
+            <!-- Search Form-->
+            <div class="col-4 flex-column">
+                <div class="card">
+                    <h3 class="card-header text-uppercase">Search By City</h3>
+                    <form id="user-form" class="card-body">
                     <label class="form-label" for="city">City</label>
                     <input name="city" id="city" type="text" autofocus="true" class="form-input" />
                     <button type="submit" class="btn">Get Forecast</button>
-                </form>
+                    </form>
+                </div>
+            </div>
+            <div class="col-8 flex-column">
+                <h1>Today's Weather Card</h1>
             </div>
         </div>
+        
+        
+
+        
+        <!-- History Window-->
+        <div class="row">
+            <div class="col-4 flex-column">
+            <div class="card">
+                <h3 class="card header text-uppercase">History</h3>
+                <div class="card-body" id="history-list">
+                    <ul>
+
+                    </ul>
+                </div>
+            </div>
+            </div>
+
+        <!-- Weather Cards-->
+            <div class="col-8 flex-column">
+            <h2 class="subtitle">Showing Weather for City</h2>
+            </div>
+        </div>
+
+
     </main>
 
 
