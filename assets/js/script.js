@@ -13,14 +13,18 @@ function getWeather() {
     var city = cityInputEl.value.trim();
     var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=67820c596372ebc8bcdbff3f5b73527a";
 
-    fetch(apiUrl)
-    .then(res => res.json())
-    .then(data => console.log(data))
+    fetch(apiUrl).then(function(response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                console.log(data);
+            });
+        } else {
+            alert('Error: City Not Found');
+        }
+    });
 
-
-
+    localStorage.setItem('city', JSON.stringify(city));
     console.log(city);
-    
 }
 
 
