@@ -27,8 +27,8 @@ function getGeo() {
         }
     });
     createButton(city);
+    removePrevious();
     createCurrentCity(city);
-    
 }
 
 
@@ -47,7 +47,6 @@ function getWeather() {
                     // display temperature in current card
                     var iconEl = document.createElement("img");
                     iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png");
-                    //iconEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
                     currentListEl.appendChild(iconEl);
                 }
 
@@ -94,6 +93,7 @@ function getWeather() {
         } else {
             alert('Error: Weather for this City Not Found');
         }
+        
     });
 }
 
@@ -141,6 +141,23 @@ function createCurrentCity(cityName) {
 
     currentCityEl.appendChild(cityEl);
 }
+
+// clear previous weather info from Current Card
+
+function removePrevious() {
+
+    while (currentCityEl.firstChild) {
+        currentCityEl.removeChild(currentCityEl.firstChild);
+        console.log("REMOVE CITY");
+    }
+
+    while (currentListEl.firstChild) {
+        currentListEl.removeChild(currentListEl.firstChild);
+        console.log("REMOVE LIST");
+    }
+}
+
+
 
 function loadHistory() {
     populate = JSON.parse(localStorage.getItem("cities"));
