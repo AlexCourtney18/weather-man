@@ -44,6 +44,11 @@ function getWeather() {
                 if (data.current.weather[0].icon) {
                     currentIcon = data.current.weather[0].icon;
                     console.log(currentIcon);
+                    // display temperature in current card
+                    var iconEl = document.createElement("img");
+                    iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png");
+                    //iconEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentListEl.appendChild(iconEl);
                 }
 
                 if (data.current.temp) {
