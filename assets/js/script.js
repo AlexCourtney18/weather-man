@@ -3,25 +3,49 @@ var cityInputEl = document.querySelector("#city");
 var historyListEl = document.querySelector("#history-list");
 
 
-
-
-
-function getWeather() {
+function getGeo() {
     event.preventDefault();
     var city = cityInputEl.value.trim();
-    var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=67820c596372ebc8bcdbff3f5b73527a";
+    var geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=67820c596372ebc8bcdbff3f5b73527a";
 
-    fetch(apiUrl).then(function (response) {
+    fetch(geoUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
                 console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].lat) {
+                        lat = data[i].lat;
+                        console.log(lat);
+                    }
+                    if (data[i].lon) {
+                        lon = data[i].lon;
+                        console.log(lon)
+                    }
+                }
+                getWeather();
             });
         } else {
             alert('Error: City Not Found');
         }
     });
-
     createButton(city);
+}
+
+
+function getWeather() {
+    // event.preventDefault();
+    // var city = cityInputEl.value.trim();
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=67820c596372ebc8bcdbff3f5b73527a";
+
+    fetch(apiUrl).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+               console.log(data);
+            });
+        } else {
+            alert('Error: Weather for this City Not Found');
+        }
+    });
 }
 
 
@@ -36,8 +60,6 @@ function save() {
     oldCity.push(newCity);
 
     localStorage.setItem('cities', JSON.stringify(oldCity));
-
-    // loadHistory();
 }
 
 function createButton(cityName) {
@@ -87,7 +109,8 @@ function loadHistory() {
 
 
 loadHistory();
-userFormEl.addEventListener("submit", getWeather);
+userFormEl.addEventListener("submit", getGeo);
+// userFormEl.addEventListener("submit", getWeather);
 userFormEl.addEventListener("submit", save);
 
 
