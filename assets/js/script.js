@@ -1,8 +1,8 @@
 var userFormEl = document.querySelector("#user-form");
 var cityInputEl = document.querySelector("#city");
 var historyListEl = document.querySelector("#history-list");
-
-
+var currentListEl = document.querySelector("#current-list");
+var currentCityEl = document.querySelector("#current-city");
 function getGeo() {
     event.preventDefault();
     var city = cityInputEl.value.trim();
@@ -15,11 +15,9 @@ function getGeo() {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].lat) {
                         lat = data[i].lat;
-                        console.log(lat);
                     }
                     if (data[i].lon) {
                         lon = data[i].lon;
-                        console.log(lon)
                     }
                 }
                 getWeather();
@@ -29,18 +27,43 @@ function getGeo() {
         }
     });
     createButton(city);
+    createCurrentCity(city);
 }
 
 
 function getWeather() {
     // event.preventDefault();
-    // var city = cityInputEl.value.trim();
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=67820c596372ebc8bcdbff3f5b73527a";
 
     fetch(apiUrl).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-               console.log(data);
+                console.log(data);
+
+                if (data.current.weather[0].icon) {
+                    currentIcon = data.current.weather[0].icon;
+                    console.log(currentIcon);
+                }
+
+                if (data.current.temp) {
+                    currentTemp = data.current.temp;
+                    console.log(currentTemp);
+                }
+
+                if (data.current.wind_speed) {
+                    currentWind = data.current.wind_speed + "MPH";
+                    console.log(currentWind);
+                }
+
+                if (data.current.humidity) {
+                    currentHumidity = data.current.humidity + "%";
+                    console.log(currentHumidity);
+                }
+
+                if (data.current.uvi) {
+                    currentUVI = data.current.uvi;
+                    console.log(currentUVI);
+                }
             });
         } else {
             alert('Error: Weather for this City Not Found');
@@ -65,12 +88,12 @@ function save() {
 function createButton(cityName) {
     console.log(cityName);
 
-    // create a container for each repo
+    // create a container for each city
     var historyEl = document.createElement("button");
     historyEl.classList.add("list-item", "btn", "flex-row", "justify-space-between", "align-center");
-    //historyEl.setAttribute
 
-    // create a span element to hold repository name
+
+    // create a span element to hold city name
     var titleEl = document.createElement("span");
     titleEl.textContent = cityName;
 
@@ -79,9 +102,23 @@ function createButton(cityName) {
     historyListEl.appendChild(historyEl);
 }
 
+function createCurrentCity(cityName) {
+    // create container for today's city name
+    var cityEl = document.createElement("h1");
+    cityEl.classList.add("text-uppercase", "text-light");
+
+    // create a span element to holy city name
+    var titleEl = document.createElement("span");
+    titleEl.textContent = cityName;
+    
+    cityEl.appendChild(titleEl);
+
+    currentCityEl.appendChild(cityEl);
+}
+
 function loadHistory() {
     populate = JSON.parse(localStorage.getItem("cities"));
-    console.log(populate);
+    // console.log(populate);
 
     if (populate !== null) {
         for (i = 0; i < populate.length; i++) {
@@ -110,7 +147,6 @@ function loadHistory() {
 
 loadHistory();
 userFormEl.addEventListener("submit", getGeo);
-// userFormEl.addEventListener("submit", getWeather);
 userFormEl.addEventListener("submit", save);
 
 
