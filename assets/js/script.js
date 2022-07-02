@@ -20,6 +20,8 @@ function getWeather() {
             alert('Error: City Not Found');
         }
     });
+
+    createButton(city);
 }
 
 
@@ -35,21 +37,15 @@ function save() {
 
     localStorage.setItem('cities', JSON.stringify(oldCity));
 
-    loadHistory();
+    // loadHistory();
 }
 
-function loadHistory() {
-    populate = JSON.parse(localStorage.getItem("cities"));
-    console.log(populate);
-
-    for (i = 0; i < populate.length; i++) {
-        // format repo name
-    var cityName = populate[i];
+function createButton(cityName) {
     console.log(cityName);
 
     // create a container for each repo
-    var historyEl = document.createElement("btn");
-    historyEl.classlist = "list-item btn flex-row justify-space-between align-center";
+    var historyEl = document.createElement("button");
+    historyEl.classList.add("list-item", "btn", "flex-row", "justify-space-between", "align-center");
     //historyEl.setAttribute
 
     // create a span element to hold repository name
@@ -59,7 +55,17 @@ function loadHistory() {
     historyEl.appendChild(titleEl);
 
     historyListEl.appendChild(historyEl);
+}
 
+function loadHistory() {
+    populate = JSON.parse(localStorage.getItem("cities"));
+    console.log(populate);
+
+    if (populate !== null) {
+        for (i = 0; i < populate.length; i++) {
+            var cityName = populate[i];
+            createButton(cityName);
+        }
     }
 
 }
@@ -80,7 +86,7 @@ function loadHistory() {
 
 
 
-
+loadHistory();
 userFormEl.addEventListener("submit", getWeather);
 userFormEl.addEventListener("submit", save);
 
