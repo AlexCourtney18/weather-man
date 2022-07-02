@@ -109,7 +109,7 @@ function createCurrentCity(cityName) {
 
     // create a span element to holy city name
     var titleEl = document.createElement("span");
-    titleEl.textContent = cityName;
+    titleEl.textContent = (cityName + "  " + (moment().format('MMM Do YYYY')));
     
     cityEl.appendChild(titleEl);
 
