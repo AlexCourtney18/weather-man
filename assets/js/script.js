@@ -28,6 +28,7 @@ function getGeo() {
     });
     createButton(city);
     createCurrentCity(city);
+    
 }
 
 
@@ -46,23 +47,43 @@ function getWeather() {
                 }
 
                 if (data.current.temp) {
-                    currentTemp = data.current.temp;
+                    currentTemp = "Temp: " + data.current.temp + " Degrees F";
                     console.log(currentTemp);
+                    // display temperature in current card
+                    var tempEl = document.createElement("li");
+                    tempEl.textContent = currentTemp;
+                    tempEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentListEl.appendChild(tempEl);
                 }
 
                 if (data.current.wind_speed) {
-                    currentWind = data.current.wind_speed + "MPH";
+                    currentWind = "Wind Speed: " + data.current.wind_speed + " MPH";
                     console.log(currentWind);
+                    // display wind_speed in current card
+                    var windEl = document.createElement("li");
+                    windEl.textContent = currentWind;
+                    windEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentListEl.appendChild(windEl);
                 }
 
                 if (data.current.humidity) {
-                    currentHumidity = data.current.humidity + "%";
+                    currentHumidity = "Humidity: " + data.current.humidity + "%";
                     console.log(currentHumidity);
+                    // display wind_speed in current card
+                    var humidityEl = document.createElement("li");
+                    humidityEl.textContent = currentHumidity;
+                    humidityEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentListEl.appendChild(humidityEl);
                 }
 
                 if (data.current.uvi) {
-                    currentUVI = data.current.uvi;
+                    currentUVI = "UVI: " + data.current.uvi;
                     console.log(currentUVI);
+                    // display wind_speed in current card
+                    var uviEl = document.createElement("li");
+                    uviEl.textContent = currentUVI;
+                    uviEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentListEl.appendChild(uviEl);
                 }
             });
         } else {
@@ -107,9 +128,9 @@ function createCurrentCity(cityName) {
     var cityEl = document.createElement("h1");
     cityEl.classList.add("text-uppercase", "text-light");
 
-    // create a span element to holy city name
+    // create a span element to hold city name
     var titleEl = document.createElement("span");
-    titleEl.textContent = (cityName + "  " + (moment().format('MMM Do YYYY')));
+    titleEl.textContent = (cityName + "  " + (moment().format('MMMM Do YYYY')));
     
     cityEl.appendChild(titleEl);
 
