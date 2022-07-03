@@ -87,15 +87,32 @@ function getWeather() {
                     var uviEl = document.createElement("li");
                     uviEl.textContent = currentUVI;
                     uviEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
-                    currentListEl.appendChild(uviEl);
+
+                    if (data.current.uvi <3) {
+                        uviEl.style.background = "green";
+                    } else if (data.current.uvi <6) {
+                        uviEl.style.background = "yellow";
+                    } else {
+                        uviEl.style.background = "red";
+                    }
+                    currentListEl.appendChild(uviEl);                    
                 }
             });
         } else {
             alert('Error: Weather for this City Not Found');
         }
-        
+        // for loop for 5 day forecast cards
+        for (let i = 0; i < 5; i++) {
+            dailyTemp = "Temp: " + data.daily[i].temp.max + " degrees F";
+            dailyWind = "Wind: " + data.daily[i].wind_speed + " MPH";
+
+            
+        }
+
     });
 }
+
+
 
 
 function save() {
@@ -126,6 +143,9 @@ function createButton(cityName) {
     historyEl.appendChild(titleEl);
 
     historyListEl.appendChild(historyEl);
+
+    // add click event listener for history buttons
+    addEventListener
 }
 
 function createCurrentCity(cityName) {
@@ -212,7 +232,13 @@ userFormEl.addEventListener("submit", save);
 
 
 
-
+// buttonContainer.addEventListener("click", someButtonClickFunction)
+// function someButtonClickFunction(event) {
+//  var btnClick = event.target
+// <btn data="Chicago">Chicago</btn>
+//  citySearch(btnClick.getAttribute('data'))  
+// either .textContent or .value 
+//}
 
 
 
