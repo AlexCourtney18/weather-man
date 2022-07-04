@@ -164,9 +164,6 @@ function getWeather() {
     });
 }
 
-
-
-
 function save() {
     var newCity = document.getElementById('city').value;
 
@@ -236,8 +233,6 @@ function removePrevious() {
     }
 }
 
-
-
 function loadHistory() {
     populate = JSON.parse(localStorage.getItem("cities"));
     // console.log(populate);
@@ -250,22 +245,6 @@ function loadHistory() {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 loadHistory();
 userFormEl.addEventListener("submit", getGeo);
