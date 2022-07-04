@@ -3,9 +3,18 @@ var cityInputEl = document.querySelector("#city");
 var historyListEl = document.querySelector("#history-list");
 var currentListEl = document.querySelector("#current-list");
 var currentCityEl = document.querySelector("#current-city");
-function getGeo() {
+
+
+function getGeo(btnClick, whatFunction) {
     event.preventDefault();
-    var city = cityInputEl.value.trim();
+    console.log(btnClick.property + " BUTTON CLICK VALUE");
+    var city = "";
+    if (btnClick && whatFunction == "Cynix") {
+        city = btnClick;
+    } else {
+        city = cityInputEl.value.trim(); 
+        createButton(city);
+    }
     var geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=67820c596372ebc8bcdbff3f5b73527a";
 
     fetch(geoUrl).then(function (response) {
@@ -26,7 +35,6 @@ function getGeo() {
             alert('Error: City Not Found');
         }
     });
-    createButton(city);
     removePrevious();
     createCurrentCity(city);
 }
@@ -88,26 +96,27 @@ function getWeather() {
                     uviEl.textContent = currentUVI;
                     uviEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
 
-                    if (data.current.uvi <3) {
+                    if (data.current.uvi < 3) {
                         uviEl.style.background = "green";
-                    } else if (data.current.uvi <6) {
+                    } else if (data.current.uvi < 6) {
                         uviEl.style.background = "yellow";
+                        uviEl.style.color = "black";
                     } else {
                         uviEl.style.background = "red";
                     }
-                    currentListEl.appendChild(uviEl);                    
+                    currentListEl.appendChild(uviEl);
                 }
             });
         } else {
             alert('Error: Weather for this City Not Found');
         }
         // for loop for 5 day forecast cards
-        for (let i = 0; i < 5; i++) {
-            dailyTemp = "Temp: " + data.daily[i].temp.max + " degrees F";
-            dailyWind = "Wind: " + data.daily[i].wind_speed + " MPH";
+        // for (let i = 0; i < 5; i++) {
+        //     dailyTemp = "Temp: " + data.daily[i].temp.max + " degrees F";
+        //     dailyWind = "Wind: " + data.daily[i].wind_speed + " MPH";
 
-            
-        }
+
+        // }
 
     });
 }
@@ -145,7 +154,14 @@ function createButton(cityName) {
     historyListEl.appendChild(historyEl);
 
     // add click event listener for history buttons
-    addEventListener
+    historyListEl.addEventListener("click", historyClick);
+
+}
+
+function historyClick(event) {
+    var btnClick = event.target.textContent;
+    getGeo(btnClick, "Cynix");
+
 }
 
 function createCurrentCity(cityName) {
@@ -156,7 +172,7 @@ function createCurrentCity(cityName) {
     // create a span element to hold city name
     var titleEl = document.createElement("span");
     titleEl.textContent = (cityName + "  " + (moment().format('MMMM Do YYYY')));
-    
+
     cityEl.appendChild(titleEl);
 
     currentCityEl.appendChild(cityEl);
@@ -217,11 +233,11 @@ userFormEl.addEventListener("submit", save);
 
 // ***************** save city to local storage
 
-// append city to history card as clickable button - display 10 max
+// ***************** append city to history card as clickable button - display 10 max
 
 // pass city variable back through fetch function when clicked in history card
 
-// display today's weather information in weather card (convert celsius to Fahrenheit)
+// ***************** display today's weather information in weather card (convert celsius to Fahrenheit)
 
 // display 5 day forecast as 5 cards within row 2 col 2 div
 
@@ -236,9 +252,20 @@ userFormEl.addEventListener("submit", save);
 // function someButtonClickFunction(event) {
 //  var btnClick = event.target
 // <btn data="Chicago">Chicago</btn>
-//  citySearch(btnClick.getAttribute('data'))  
-// either .textContent or .value 
+//  citySearch(btnClick.getAttribute('data'))
+// either .textContent or .value
 //}
+
+// function historyClick(event) {
+    //     var btnClick = event.target.textContent;
+    //      console.log(btnClick + " value");
+
+    //     getGeo(btnClick);
+        // citySearch(btnClick.getAttribute('data'))
+
+        // <btn data="Chicago">Chicago</btn>
+        // either .textContent or .value 
+    // }
 
 
 
