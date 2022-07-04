@@ -3,6 +3,12 @@ var cityInputEl = document.querySelector("#city");
 var historyListEl = document.querySelector("#history-list");
 var currentListEl = document.querySelector("#current-list");
 var currentCityEl = document.querySelector("#current-city");
+var dailyListEl = document.querySelector("#daily-list");
+var forecastEl = document.querySelector("#forecast");
+// var dailyListEl1 = document.querySelector("#daily-list1");
+// var dailyListEl2 = document.querySelector("#daily-list2");
+// var dailyListEl3 = document.querySelector("#daily-list3");
+// var dailyListEl4 = document.querySelector("#daily-list4");
 
 
 function getGeo(btnClick, whatFunction) {
@@ -53,58 +59,96 @@ function getWeather() {
                     currentIcon = data.current.weather[0].icon;
                     console.log(currentIcon);
                     // display temperature in current card
-                    var iconEl = document.createElement("img");
-                    iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png");
-                    currentListEl.appendChild(iconEl);
+                    var currentIconEl = document.createElement("img");
+                    currentIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png");
+                    currentListEl.appendChild(currentIconEl);
                 }
 
                 if (data.current.temp) {
                     currentTemp = "Temp: " + data.current.temp + " Degrees F";
                     console.log(currentTemp);
                     // display temperature in current card
-                    var tempEl = document.createElement("li");
-                    tempEl.textContent = currentTemp;
-                    tempEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
-                    currentListEl.appendChild(tempEl);
+                    var currentTempEl = document.createElement("li");
+                    currentTempEl.textContent = currentTemp;
+                    currentTempEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentListEl.appendChild(currentTempEl);
                 }
 
                 if (data.current.wind_speed) {
                     currentWind = "Wind Speed: " + data.current.wind_speed + " MPH";
                     console.log(currentWind);
                     // display wind_speed in current card
-                    var windEl = document.createElement("li");
-                    windEl.textContent = currentWind;
-                    windEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
-                    currentListEl.appendChild(windEl);
+                    var currentWindEl = document.createElement("li");
+                    currentWindEl.textContent = currentWind;
+                    currentWindEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentListEl.appendChild(currentWindEl);
                 }
 
                 if (data.current.humidity) {
                     currentHumidity = "Humidity: " + data.current.humidity + "%";
                     console.log(currentHumidity);
                     // display wind_speed in current card
-                    var humidityEl = document.createElement("li");
-                    humidityEl.textContent = currentHumidity;
-                    humidityEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
-                    currentListEl.appendChild(humidityEl);
+                    var currentHumidityEl = document.createElement("li");
+                    currentHumidityEl.textContent = currentHumidity;
+                    currentHumidityEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentListEl.appendChild(currentHumidityEl);
                 }
 
                 if (data.current.uvi) {
                     currentUVI = "UVI: " + data.current.uvi;
                     console.log(currentUVI);
                     // display wind_speed in current card
-                    var uviEl = document.createElement("li");
-                    uviEl.textContent = currentUVI;
-                    uviEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    var currentUviEl = document.createElement("li");
+                    currentUviEl.textContent = currentUVI;
+                    currentUviEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
 
                     if (data.current.uvi < 3) {
-                        uviEl.style.background = "green";
+                        currentUviEl.style.background = "green";
                     } else if (data.current.uvi < 6) {
-                        uviEl.style.background = "yellow";
-                        uviEl.style.color = "black";
+                        currentUviEl.style.background = "yellow";
+                        currentUviEl.style.color = "black";
                     } else {
-                        uviEl.style.background = "red";
+                        currentUviEl.style.background = "red";
                     }
-                    currentListEl.appendChild(uviEl);
+                    currentListEl.appendChild(currentUviEl);
+                }
+
+                for (let i = 0; i < 5; i++) {
+                    dailyDate = (moment().add(1, 'days').format('MMMM Do YYYY'));
+                    dailyIcon = data.daily[i].weather[0].icon;
+                    dailyTemp = "Temp: " + data.daily[i].temp.max + " degrees F";
+                    dailyWind = "Wind: " + data.daily[i].wind_speed + " MPH";
+                    dailyHumidity = "Humidity: " + data.daily[i].humidity + "%";
+
+                    var dailyParentEl = document.createElement("div");
+                        dailyParentEl.classList.add("col-2");
+                        forecastEl.appendChild(dailyParentEl);
+        
+                    var dailyIconEl = document.createElement("img");
+                        dailyIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + dailyIcon + "@2x.png");
+                        dailyParentEl.appendChild(dailyIconEl);
+        
+                    var dailyTempEl = document.createElement("p");
+                        dailyTempEl.textContent = dailyTemp;
+                        dailyTempEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                        dailyParentEl.appendChild(dailyTempEl);
+        
+                    var dailyWindEl = document.createElement("p");
+                        dailyWindEl.textContent = dailyWind;
+                        dailyWindEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                        dailyParentEl.appendChild(dailyWindEl);
+        
+                    var dailyHumidityEl = document.createElement("p");
+                        dailyHumidityEl.textContent = dailyHumidity;
+                        dailyHumidityEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                        dailyParentEl.appendChild(dailyHumidityEl);
+        
+                    console.log(dailyDate + "daily");
+                    console.log(dailyIcon + "daily");
+                    console.log(dailyTemp + "daily");
+                    console.log(dailyWind + "daily");
+                    console.log(dailyHumidity + "daily");
+        
                 }
             });
         } else {
@@ -112,9 +156,41 @@ function getWeather() {
         }
         // for loop for 5 day forecast cards
         // for (let i = 0; i < 5; i++) {
+        //     dailyDate = (moment().add(1, 'days').format('MMMM Do YYYY'));
+        //     dailyIcon = data.daily[i].weather.icon;
         //     dailyTemp = "Temp: " + data.daily[i].temp.max + " degrees F";
         //     dailyWind = "Wind: " + data.daily[i].wind_speed + " MPH";
+        //     dailyHumidity = "Humidity: " + data.daily[i].humidity + "%";
 
+        //     var dailyIconEl = document.createElement("img");
+        //         dailyIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + dailyIcon + "@2x.png");
+        //         dailyListEl.appendChild(dailyIconEl);
+
+        //     var dailyTempEl = document.createElement("li");
+        //         dailyTempEl.textContent = dailyTemp;
+        //         dailyTempEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+        //         dailyListEl.appendChild(dailyTempEl);
+
+        //     var dailyWindEl = document.createElement("li");
+        //         dailyWindEl.textContent = dailyWind;
+        //         dailyWindEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+        //         dailyListEl.appendChild(dailyWindEl);
+
+        //     var dailyHumidityEl = document.createElement("li");
+        //         dailyHumidityEl.textContent = dailyHumidity;
+        //         dailyHumidityEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+        //         dailyListEl.appendChild(dailyHumidityEl);
+
+            
+
+
+
+
+        //     console.log(dailyDate + "daily");
+        //     console.log(dailyIcon + "daily");
+        //     console.log(dailyTemp + "daily");
+        //     console.log(dailyWind + "daily");
+        //     console.log(dailyHumidity + "daily");
 
         // }
 
