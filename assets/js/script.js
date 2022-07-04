@@ -113,8 +113,11 @@ function getWeather() {
                     currentListEl.appendChild(currentUviEl);
                 }
 
-                for (let i = 0; i < 5; i++) {
-                    dailyDate = (moment().add(1, 'days').format('MMMM Do YYYY'));
+                // reset forecast div
+                forecastEl.textContent = "";
+
+                for (let i = 1; i < 6; i++) {
+                    dailyDate = moment.unix(data.daily[i].dt).format("M/D/YY");
                     dailyIcon = data.daily[i].weather[0].icon;
                     dailyTemp = "Temp: " + data.daily[i].temp.max + " degrees F";
                     dailyWind = "Wind: " + data.daily[i].wind_speed + " MPH";
@@ -123,6 +126,10 @@ function getWeather() {
                     var dailyParentEl = document.createElement("div");
                         dailyParentEl.classList.add("col-2");
                         forecastEl.appendChild(dailyParentEl);
+
+                    var dailyDateEl = document.createElement("p");
+                        dailyDateEl.textContent = dailyDate;
+                        dailyParentEl.appendChild(dailyDateEl);
         
                     var dailyIconEl = document.createElement("img");
                         dailyIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + dailyIcon + "@2x.png");
@@ -154,46 +161,6 @@ function getWeather() {
         } else {
             alert('Error: Weather for this City Not Found');
         }
-        // for loop for 5 day forecast cards
-        // for (let i = 0; i < 5; i++) {
-        //     dailyDate = (moment().add(1, 'days').format('MMMM Do YYYY'));
-        //     dailyIcon = data.daily[i].weather.icon;
-        //     dailyTemp = "Temp: " + data.daily[i].temp.max + " degrees F";
-        //     dailyWind = "Wind: " + data.daily[i].wind_speed + " MPH";
-        //     dailyHumidity = "Humidity: " + data.daily[i].humidity + "%";
-
-        //     var dailyIconEl = document.createElement("img");
-        //         dailyIconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + dailyIcon + "@2x.png");
-        //         dailyListEl.appendChild(dailyIconEl);
-
-        //     var dailyTempEl = document.createElement("li");
-        //         dailyTempEl.textContent = dailyTemp;
-        //         dailyTempEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
-        //         dailyListEl.appendChild(dailyTempEl);
-
-        //     var dailyWindEl = document.createElement("li");
-        //         dailyWindEl.textContent = dailyWind;
-        //         dailyWindEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
-        //         dailyListEl.appendChild(dailyWindEl);
-
-        //     var dailyHumidityEl = document.createElement("li");
-        //         dailyHumidityEl.textContent = dailyHumidity;
-        //         dailyHumidityEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
-        //         dailyListEl.appendChild(dailyHumidityEl);
-
-            
-
-
-
-
-        //     console.log(dailyDate + "daily");
-        //     console.log(dailyIcon + "daily");
-        //     console.log(dailyTemp + "daily");
-        //     console.log(dailyWind + "daily");
-        //     console.log(dailyHumidity + "daily");
-
-        // }
-
     });
 }
 
@@ -304,44 +271,6 @@ loadHistory();
 userFormEl.addEventListener("submit", getGeo);
 userFormEl.addEventListener("submit", save);
 
-
-// ***************** concatenate city variable into apiUrl for fetch
-
-// ***************** save city to local storage
-
-// ***************** append city to history card as clickable button - display 10 max
-
-// pass city variable back through fetch function when clicked in history card
-
-// ***************** display today's weather information in weather card (convert celsius to Fahrenheit)
-
-// display 5 day forecast as 5 cards within row 2 col 2 div
-
-// concatenate city variable into header for r2c2 card "Showing Weather for City"
-
-// styling touches to ensure clean design (icons for weather status, UV index favorable, moderate, severe)
-
-
-
-
-// buttonContainer.addEventListener("click", someButtonClickFunction)
-// function someButtonClickFunction(event) {
-//  var btnClick = event.target
-// <btn data="Chicago">Chicago</btn>
-//  citySearch(btnClick.getAttribute('data'))
-// either .textContent or .value
-//}
-
-// function historyClick(event) {
-    //     var btnClick = event.target.textContent;
-    //      console.log(btnClick + " value");
-
-    //     getGeo(btnClick);
-        // citySearch(btnClick.getAttribute('data'))
-
-        // <btn data="Chicago">Chicago</btn>
-        // either .textContent or .value 
-    // }
 
 
 
