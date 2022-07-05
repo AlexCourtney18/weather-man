@@ -5,10 +5,6 @@ var currentListEl = document.querySelector("#current-list");
 var currentCityEl = document.querySelector("#current-city");
 var dailyListEl = document.querySelector("#daily-list");
 var forecastEl = document.querySelector("#forecast");
-// var dailyListEl1 = document.querySelector("#daily-list1");
-// var dailyListEl2 = document.querySelector("#daily-list2");
-// var dailyListEl3 = document.querySelector("#daily-list3");
-// var dailyListEl4 = document.querySelector("#daily-list4");
 
 
 function getGeo(btnClick, whatFunction) {
@@ -21,7 +17,7 @@ function getGeo(btnClick, whatFunction) {
         city = cityInputEl.value.trim(); 
         createButton(city);
     }
-    var geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=67820c596372ebc8bcdbff3f5b73527a";
+    var geoUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=67820c596372ebc8bcdbff3f5b73527a";
 
     fetch(geoUrl).then(function (response) {
         if (response.ok) {
@@ -44,7 +40,6 @@ function getGeo(btnClick, whatFunction) {
     removePrevious();
     createCurrentCity(city);
 }
-
 
 function getWeather() {
     // event.preventDefault();
@@ -100,7 +95,7 @@ function getWeather() {
                     // display wind_speed in current card
                     var currentUviEl = document.createElement("li");
                     currentUviEl.textContent = currentUVI;
-                    currentUviEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center");
+                    currentUviEl.classList.add("weather-item", "flex-row", "justify-space-between", "align-center", "col-2");
 
                     if (data.current.uvi < 3) {
                         currentUviEl.style.background = "green";
@@ -155,7 +150,6 @@ function getWeather() {
                     console.log(dailyTemp + "daily");
                     console.log(dailyWind + "daily");
                     console.log(dailyHumidity + "daily");
-        
                 }
             });
         } else {
@@ -183,7 +177,6 @@ function createButton(cityName) {
     // create a container for each city
     var historyEl = document.createElement("button");
     historyEl.classList.add("list-item", "btn", "flex-row", "justify-space-between", "align-center");
-
 
     // create a span element to hold city name
     var titleEl = document.createElement("span");
